@@ -1278,8 +1278,13 @@ static void xmm7360_tty_close(struct tty_struct *tty, struct file *filp)
 		tty_port_close(&qp->port, tty, filp);
 }
 
+#if LINUX_VERSION_CODE >= KERNEL_VERSION(6, 6, 0)
+static long int xmm7360_tty_write(struct tty_struct *tty,
+			     const unsigned char *buffer, long unsigned int count)
+#else
 static int xmm7360_tty_write(struct tty_struct *tty,
 			     const unsigned char *buffer, int count)
+#endif
 {
 	struct queue_pair *qp = tty->driver_data;
 	int written;
