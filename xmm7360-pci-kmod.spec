@@ -3,21 +3,21 @@
 %global debug_package %{nil}
 %endif
 
-Name:     ayaneo-platform-kmod
+Name:     xmm7360-pci-kmod
 Version:  {{{ git_dir_version }}}
 Release:  1%{?dist}
-Summary:  Linux drivers for AYANEO x86 handhelds providing RGB control. 
+Summary:  Driver for Fibocom L850-GL / Intel XMM7360.
 License:  GPLv3
-URL:      https://github.com/KyleGospo/ayaneo-platform
+URL:      https://github.com/ignic/xmm7360-pci
 
-Source:   %{url}/archive/refs/heads/main.tar.gz
+Source:   %{url}/archive/refs/heads/master.tar.gz
 
 BuildRequires: kmodtool
 
 %{expand:%(kmodtool --target %{_target_cpu} --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null) }
 
 %description
-Linux drivers for AYN x86 handhelds providing a hwmon interface for pwm fan control and temperature sensors, as well as RGB control.
+Driver for Fibocom L850-GL / Intel XMM7360.
 
 %prep
 # error out if there was something wrong with kmodtool
@@ -26,12 +26,12 @@ Linux drivers for AYN x86 handhelds providing a hwmon interface for pwm fan cont
 # print kmodtool output for debugging purposes:
 kmodtool --target %{_target_cpu} --kmodname %{name} %{?buildforkernels:--%{buildforkernels}} %{?kernels:--for-kernels "%{?kernels}"} 2>/dev/null
 
-%setup -q -c ayaneo-platform-main
+%setup -q -c xmm7360-pci-master
 
 find . -type f -name '*.c' -exec sed -i "s/#VERSION#/%{version}/" {} \+
 
 for kernel_version  in %{?kernel_versions} ; do
-  cp -a ayaneo-platform-main _kmod_build_${kernel_version%%___*}
+  cp -a xmm7360-pci-master _kmod_build_${kernel_version%%___*}
 done
 
 %build
@@ -42,8 +42,8 @@ done
 %install
 for kernel_version in %{?kernel_versions}; do
  mkdir -p %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
- install -D -m 755 _kmod_build_${kernel_version%%___*}/ayaneo-platform.ko %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
- chmod a+x %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/ayaneo-platform.ko
+ install -D -m 755 _kmod_build_${kernel_version%%___*}/xmm7360.ko %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/
+ chmod a+x %{buildroot}%{kmodinstdir_prefix}/${kernel_version%%___*}/%{kmodinstdir_postfix}/xmm7360.ko
 done
 %{?akmod_install}
 

@@ -2,29 +2,30 @@
 %global debug_package %{nil}
 %endif
 
-Name:     ayaneo-platform
+Name:     xmm7360-pci
 Version:  {{{ git_dir_version }}}
 Release:  1%{?dist}
-Summary:  Linux drivers for AYANEO x86 handhelds providing RGB control. 
+Summary:  Driver for Fibocom L850-GL / Intel XMM7360. 
 License:  GPLv3
-URL:      https://github.com/KyleGospo/ayaneo-platform
+URL:      https://github.com/ignic/xmm7360-pci
 
-Source:   %{url}/archive/refs/heads/main.tar.gz
+Source:   %{url}/archive/refs/heads/master.tar.gz
 
 Provides: %{name}-kmod-common = %{version}
 Requires: %{name}-kmod >= %{version}
+Requires: python3-configargparse
+Requires: python3-pyroute2
 
 BuildRequires: systemd-rpm-macros
 
 %description
-Linux drivers for AYANEO x86 handhelds providing RGB control.
+Driver for Fibocom L850-GL / Intel XMM7360.
 
 %prep
-%setup -q -c %{name}-main
+%setup -q -c %{name}-master
 
 %files
-%doc %{name}-main/README.md
-%license %{name}-main/LICENSE
+%doc %{name}-master/README.md
 
 %changelog
 {{{ git_dir_changelog }}}
