@@ -40,4 +40,5 @@ mv xmm7360.ini.sample %{buildroot}%{_sysconfdir}/xmm7360
 %{_sysconfdir}/xmm7360
 
 %changelog
-{{{ git_dir_changelog }}}
+* Wed May 15 2024 ignic <ignic@mail.org> - 1
+- First package
