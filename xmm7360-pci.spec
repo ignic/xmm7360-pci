@@ -24,14 +24,10 @@ Driver for Fibocom L850-GL / Intel XMM7360.
 {{{ git_dir_setup_macro }}}
 
 %install
-mkdir -p %{buildroot}%{_datadir}/%{name}/rpc
-mv rpc/open_xdatachannel.py %{buildroot}%{_datadir}/%{name}/rpc/
-mv rpc/rpc*.py %{buildroot}%{_datadir}/%{name}/rpc/
-
-mkdir -p %{buildroot}%{_unitdir}
-mv examples/xmm7360.service %{buildroot}%{_unitdir}/
-
-mv xmm7360.ini.sample %{buildroot}%{_sysconfdir}/xmm7360
+install -m 755 -D -t %{buildroot}%{_datadir}/%{name}/rpc rpc/open_xdatachannel.py
+install -m 644 -D -t %{buildroot}%{_datadir}/%{name}/rpc rpc/rpc*.py
+install -m 644 -D -t %{buildroot}%{_unitdir} examples/xmm7360.service
+install -m 644 -D xmm7360.ini.sample %{buildroot}%{_sysconfdir}/xmm7360
 
 %files
 %doc README.md
