@@ -12,9 +12,6 @@ URL:      https://github.com/ignic/xmm7360-pci
 VCS:      {{{ git_dir_vcs }}}
 Source:   {{{ git_dir_pack }}}
 
-Provides: %{name}-kmod-common = %{version}
-
-Requires: %{name}-kmod >= %{version}
 Requires: python3-configargparse
 Requires: python3-pyroute2
 
