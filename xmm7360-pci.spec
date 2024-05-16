@@ -31,10 +31,13 @@ mv rpc/rpc*.py %{buildroot}%{_datadir}/%{name}/rpc/
 mkdir -p %{buildroot}%{_unitdir}
 mv examples/xmm7360.service %{buildroot}%{_unitdir}/
 
+mv xmm7360.ini.sample %{buildroot}%{_sysconfdir}/xmm7360
+
 %files
 %doc README.md
 %{_datadir}/%{name}/rpc/*
 %{_unitdir}/*
+%{_sysconfdir}/xmm7360
 
 %changelog
 {{{ git_dir_changelog }}}
