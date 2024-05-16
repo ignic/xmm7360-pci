@@ -1,12 +1,13 @@
 [Unit]
 Description=XMM7360 Modem Init
-ConditionPathExists=/dev/ttyXMM1
+ConditionPathExists=|/dev/ttyXMM1
+ConditionPathExists=|/dev/wwan0xmmrpc0
 After=NetworkManager.service
 Requires=multi-user.target systemd-user-sessions.service
 
 [Service]
 Type=oneshot
-ExecStartPre=/bin/sh -c 'until [ -e "/dev/xmm0" ]; do /usr/bin/sleep 1; done'
+ExecStartPre=/bin/sh -c 'until [ -e "/dev/xmm0" -o -e "/dev/wwan0xmmrpc0" ]; do /usr/bin/sleep 1; done'
 ExecStart=/usr/share/xmm7360-pci/rpc/open_xdatachannel.py -c /etc/xmm7360
 ExecStop=ip link set wwan0 down
 RemainAfterExit=yes
